@@ -5,7 +5,7 @@ const Header = () => {
 	return (
 		<>
 			<nav className='bg-blue-400 py-3'>
-				<ul className='flex justify-center'>
+				<ul className='flex justify-around'>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'

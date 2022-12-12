@@ -13,7 +13,7 @@ const Account = () => {
 	const navigate = useNavigate();
 
 	const handleSubmit = () => {
-		Axios.post('http://localhost:3001/api/insert', {
+		const obj = {
 			name: name,
 			password: password,
 			email: email,
@@ -21,17 +21,13 @@ const Account = () => {
 			district: district,
 			city: city,
 			country: country,
-		}).then(() => {
+		};
+		console.log(obj)
+		Axios.post('http://localhost:3001/api/post/account', obj).then(() => {
 			console.log('Successful insert');
 		});
 		navigate('/');
 	};
-
-	useEffect(() => {
-		Axios.get('http://localhost:3001/api/get').then((response) => {
-			console.log(response.data);
-		});
-	}, []);
 
 	return (
 		<div className='grid grid-cols-12 gap-4'>

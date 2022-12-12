@@ -1,7 +1,40 @@
-import React from 'react';
-import OrderItem from '../components/OrderItem';
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import OrderItem from '../../components/OrderItem';
 
 const Cart = () => {
+	const [items, setItems] = useState([]);
+	const [total, setTotal] = useState(0);
+	const [delivery, setDelivery] = useState(0);
+
+	const navigate = useNavigate();
+
+	const handlePurchase = () => {
+		Axios.delete('http://localhost:3001/api/delete/cart');
+		alert('Purchase successfully');
+		navigate('/');
+	};
+
+	useEffect(() => {
+		Axios.get('http://localhost:3001/api/get/cart').then((response) => {
+			var item = [];
+			for (let obj in response.data) {
+				const getData = {
+					id: response.data[obj].p_id,
+					picture: response.data[obj].picture,
+					name: response.data[obj].p_name,
+					price: response.data[obj].price,
+					quantity: response.data[obj].add_quantity,
+				};
+				item.push(getData);
+				setTotal((total) => total + getData.price * getData.quantity);
+			}
+			setItems(item);
+		});
+	}, []);
+
+	console.log(total);
 	return (
 		<div className='grid grid-cols-12 gap-4'>
 			<div className='col-start-2 col-span-10'>
@@ -32,27 +65,32 @@ const Cart = () => {
 							</thead>
 
 							<tbody>
-								<OrderItem />
-								<OrderItem />
-								<OrderItem />
+								{items.map((item) => {
+									return (
+										<OrderItem
+											item={item}
+											key={item.id}
+										/>
+									);
+								})}
 							</tbody>
 						</table>
 					</div>
-					<div className='sm:w-full 2xl:w-3/12 p-4 border-2 border-black'>
+					<div className='sm:w-full 2xl:w-3/12 p-4 border border-gray-500'>
 						<h1 className='text-3xl font-bold pb-10'>
 							ORDER SUMMARY
 						</h1>
 						<div className='text-lg flex flex-row justify-between my-5'>
 							<p>Sub-total</p>
-							<p>$18.00</p>
+							<p>${total}</p>
 						</div>
 						<div className='text-lg flex flex-row justify-between my-5'>
 							<p>Delivery</p>
-							<p>$18.00</p>
+							<p>${delivery}</p>
 						</div>
 						<div className='flex flex-row justify-between my-5 text-2xl font-bold'>
 							<p className=''>Estimated total</p>
-							<p>$36.00</p>
+							<p>${total}</p>
 						</div>
 						<hr />
 						<p className='py-5 font-bold'>
@@ -80,6 +118,11 @@ const Cart = () => {
 								/>
 							</div>
 						</div>
+						<button
+							className='w-full h-12 border border-blue-400 bg-blue-400 text-white hover:bg-white hover:text-blue-400 my-5'
+							onClick={handlePurchase}>
+							Purchase
+						</button>
 					</div>
 				</div>
 			</div>

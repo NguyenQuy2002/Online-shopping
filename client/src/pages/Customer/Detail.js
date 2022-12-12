@@ -1,37 +1,43 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 const Detail = () => {
 	const location = useLocation();
 	const item = location.state;
-	const { id, image, title, desc, category, type, price } = item.item;
+	const { id, picture, name, desc, category, type, price } = item.item;
 	const [quantity, setQuantity] = useState(0);
+
+	const navigate = useNavigate();
 	const handleDecrease = () => {
 		setQuantity((quantity) => quantity - 1);
 	};
 	const handleIncrease = () => {
 		setQuantity((quantity) => quantity + 1);
 	};
+	const handleSubmit = () => {
+		const obj = {
+			add_OrId: 1,
+			add_PId: id,
+			add_quantity: quantity,
+		};
+		Axios.post('http://localhost:3001/api/post/detail', obj)
+		alert('Order successfully');
+		navigate('/');
+	};
+
 	return (
 		<div>
 			<div className='p-5 grid grid-cols-4 gap-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4'>
 				<div className='h-screen items-center px-5 pt-40 col-start-2'>
 					<img
-						src={image}
-						alt={title}
+						src={picture}
+						alt={name}
 					/>
-					<div>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-						sed do eiusmod tempor incididunt ut labore et dolore
-						magna aliqua. Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea
-						commodo consequat. Duis aute irure dolor in
-						reprehenderit in voluptate velit esse cillum dolore eu
-						fugiat nulla pariatur.{' '}
-					</div>
+					<div></div>
 				</div>
 				<div className='px-5 py-10'>
-					<h1 className='text-3xl font-bold pb-5'>{title}</h1>
+					<h1 className='text-3xl font-bold pb-5'>{name}</h1>
 					<hr />
 					<p className='py-5 text-lg h-2/6'>{desc}</p>
 					<p>Type: {type}</p>
@@ -53,11 +59,13 @@ const Detail = () => {
 									-
 								</div>
 								<input
-									className='w-11 h-7 border border-gray-500 text-center'
-									type='text'
+									className='w-11 h-7 pl-3 border border-gray-500 text-center'
+									type='number'
 									id='quantity'
 									name='quantity'
 									value={quantity}
+									onChange={(e) => setQuantity(e)}
+									min='1'
 								/>
 								<div
 									onClick={handleIncrease}
@@ -68,12 +76,13 @@ const Detail = () => {
 						</div>
 						<div>
 							<h2 className='text-2xl font-bold py-10'>
-								Total: ${price}.00
+								Total: ${price * quantity}.00
 							</h2>
 							<input
 								className='transition-colors w-full border border-black mt-5 py-3 font-bold hover:bg-gray-600 hover:text-white'
-								type='submit'
+								type='button'
 								value='ADD TO CART'
+								onClick={handleSubmit}
 							/>
 						</div>
 					</form>
