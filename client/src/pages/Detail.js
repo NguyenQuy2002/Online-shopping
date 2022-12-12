@@ -35,6 +35,7 @@ const Detail = () => {
 					<hr />
 					<p className='py-5 text-lg h-2/6'>{desc}</p>
 					<p>Type: {type}</p>
+					<p>Type: {category}</p>
 					<form action='/'>
 						<h2 className='text-2xl font-bold py-10'>
 							Price: ${price}

@@ -37,6 +37,20 @@ const Header = () => {
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
+							to='/hats'>
+							Hats
+						</NavLink>
+					</li>
+					<li className='mx-5 uppercase font-bold'>
+						<NavLink
+							className='transition-colors hover:text-green-900 text-white'
+							to='/shoes'>
+							Shoes
+						</NavLink>
+					</li>
+					<li className='mx-5 uppercase font-bold'>
+						<NavLink
+							className='transition-colors hover:text-green-900 text-white'
 							to='/cart'>
 							Cart
 						</NavLink>

@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
-import data from '../data/products';
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Products = () => {
-	const [items, setItems] = useState(data);
+	const [items, setItems] = useState([]);
+	useEffect(() => {
+		Axios.get('http://localhost:3001/api/get/product/dresses').then(
+			(response) => {
+				var dress_data = [];
+				for (let obj in response.data) {
+					const getData = {
+						id: response.data[obj].PID,
+						image: response.data[obj].Picture,
+						title: response.data[obj].PName,
+						desc: response.data[obj].PDesc,
+						category: 'Dress',
+						type: 'Full body wear',
+						price: response.data[obj].Price,
+					};
+					dress_data.push(getData);
+				}
+				setItems(dress_data);
+			}
+		);
+	}, []);
 	return (
 		<>
 			<h1 className='py-10 text-center font-bold text-4xl'>

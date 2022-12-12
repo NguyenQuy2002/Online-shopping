@@ -2,10 +2,10 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Dresses = () => {
+const Shoes = () => {
 	const [items, setItems] = useState([]);
 	useEffect(() => {
-		Axios.get('http://localhost:3001/api/get/product/dresses').then(
+		Axios.get('http://localhost:3001/api/get/product/shoes').then(
 			(response) => {
 				var dress_data = [];
 				for (let obj in response.data) {
@@ -24,13 +24,15 @@ const Dresses = () => {
 			}
 		);
 	}, []);
+
 	return (
 		<>
-			<h1 className='py-10 text-center font-bold text-4xl'>Dresses</h1>
+			<h1 className='py-10 text-center font-bold text-4xl'>Shoes</h1>
 			<section className='p-5 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
 				{items.map((item) => {
 					const { id, image, title, desc, category, type, price } =
 						item;
+
 					return (
 						<div
 							key={id}
@@ -71,4 +73,4 @@ const Dresses = () => {
 	);
 };
 
-export default Dresses;
+export default Shoes;

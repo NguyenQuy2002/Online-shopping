@@ -6,7 +6,9 @@ import Pants from './pages/Pants';
 import Shirts from './pages/Shirts';
 import Detail from './pages/Detail';
 import Cart from './pages/Cart';
-import Account from './pages/Account'
+import Account from './pages/Account';
+import Hats from './pages/Hats';
+import Shoes from './pages/Shoes';
 
 const App = () => {
 	return (
@@ -27,6 +29,12 @@ const App = () => {
 						<Route
 							path='/shirts'
 							element={<Shirts />}></Route>
+						<Route
+							path='/hats'
+							element={<Hats />}></Route>
+						<Route
+							path='/shoes'
+							element={<Shoes />}></Route>
 						<Route
 							path='/detail'
 							element={<Detail />}></Route>
