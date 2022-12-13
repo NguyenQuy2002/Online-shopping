@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductItem from '../../components/ProductItem';
-
+import Header from '../../components/Header';
 const Shirts = () => {
 	const [items, setItems] = useState([]);
 	useEffect(() => {
@@ -27,6 +27,7 @@ const Shirts = () => {
 	}, []);
 	return (
 		<>
+			<Header />
 			<h1 className='py-10 text-center font-bold text-4xl'>Shirts</h1>
 			<section className='p-5 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
 				{items.map((item) => {

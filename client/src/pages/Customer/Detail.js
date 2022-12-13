@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import Header from '../../components/Header';
 
 const Detail = () => {
 	const location = useLocation();
@@ -23,11 +24,12 @@ const Detail = () => {
 		};
 		Axios.post('http://localhost:3001/api/post/detail', obj)
 		alert('Order successfully');
-		navigate('/');
+		navigate('/customer');
 	};
 
 	return (
 		<div>
+			<Header />
 			<div className='p-5 grid grid-cols-4 gap-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4'>
 				<div className='h-screen items-center px-5 pt-40 col-start-2'>
 					<img

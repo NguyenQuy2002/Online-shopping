@@ -35,6 +35,20 @@ app.get('/api/get/product/features', (req, res) => {
 	});
 });
 
+app.get('/api/login/customer', (req, res) => {
+	const sqlSelect = `SELECT c_email, password FROM customer`;
+	db.query(sqlSelect, (err, result) => {
+		res.send(result);
+	});
+});
+
+app.get('/api/login/admin', (req, res) => {
+	const sqlSelect = `SELECT is_email, is_password FROM invent_manage`;
+	db.query(sqlSelect, (err, result) => {
+		res.send(result);
+	});
+});
+
 app.get('/api/get/cart', (req, res) => {
 	const sqlSelect = `SELECT p.p_id, p.picture, p.p_name, p.price, a.add_quantity 
 	FROM product p, add_to a 
@@ -78,8 +92,29 @@ app.post('/api/post/detail', (req, res) => {
 	});
 });
 
+app.post('/api/signup', (req, res) => {
+	const name = req.body.name;
+	const email = req.body.email;
+	const password = req.body.password;
+	const role = req.body.role;
+	console.log(role);
+	if (role == 1) {
+		const sqlInsert =
+			'INSERT INTO invent_manage (is_name, is_password, is_email) VALUES (?, ?, ?)';
+		db.query(sqlInsert, [name, password, email], (err, result) => {
+			console.log(result);
+		});
+	} else if (role == 2) {
+		const sqlInsert =
+			'INSERT INTO customer (c_name, password, c_email) VALUES (?, ?, ?)';
+		db.query(sqlInsert, [name, password, email], (err, result) => {
+			console.log(result);
+		});
+	}
+});
+
 app.delete('/api/delete/cart', (req, res) => {
-	console.log(req.body)
+	console.log(req.body);
 	const sqlDelete = 'DELETE FROM add_to WHERE add_OrId = 1';
 	db.query(sqlDelete, (err, result) => {
 		if (err) console.log(err);

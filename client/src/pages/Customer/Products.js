@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductItem from '../../components/ProductItem';
+import Header from '../../components/Header';
 
 const Products = () => {
 	const [items, setItems] = useState([]);
@@ -27,6 +28,7 @@ const Products = () => {
 	}, []);
 	return (
 		<>
+			<Header />
 			<h1 className='py-10 text-center font-bold text-4xl'>
 				Feature Products
 			</h1>

@@ -9,57 +9,64 @@ const Header = () => {
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/'>
+							to='/customer/'>
 							Home
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/dresses'>
+							to='/customer/dresses'>
 							Dresses
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/pants'>
+							to='/customer/pants'>
 							Pants
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/shirts'>
+							to='/customer/shirts'>
 							Shirts
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/hats'>
+							to='/customer/hats'>
 							Hats
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/shoes'>
+							to='/customer/shoes'>
 							Shoes
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/cart'>
+							to='/customer/cart'>
 							Cart
 						</NavLink>
 					</li>
 					<li className='mx-5 uppercase font-bold'>
 						<NavLink
 							className='transition-colors hover:text-green-900 text-white'
-							to='/account'>
+							to='/customer/account'>
 							Account
+						</NavLink>
+					</li>
+					<li className='mx-5 uppercase font-bold'>
+						<NavLink
+							className='transition-colors hover:text-green-900 text-white'
+							to='/'>
+							Logout
 						</NavLink>
 					</li>
 				</ul>

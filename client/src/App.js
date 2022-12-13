@@ -11,6 +11,7 @@ import Account from './pages/Customer/Account';
 import Hats from './pages/Customer/Hats';
 import Shoes from './pages/Customer/Shoes';
 import Header from './components/Header';
+import Signup from './pages/Auth/Signup';
 
 const App = () => {
 	return (
@@ -19,16 +20,17 @@ const App = () => {
 				<div>
 					<Routes>
 						<Route
-							path=''
+							path='/'
 							element={<Login />}></Route>
+						<Route
+							path='/signup'
+							element={<Signup />}></Route>
 					</Routes>
 					<Routes>
 						<Route
 							path='/admin'
 							element={<Admin />}></Route>
 					</Routes>
-
-					<Header />
 					<Routes>
 						<Route
 							path='/customer'

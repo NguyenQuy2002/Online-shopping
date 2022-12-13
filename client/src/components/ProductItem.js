@@ -30,7 +30,7 @@ const ProductItem = ({item}) => {
 			<div className='flex flex-row justify-between'>
 				<p className='text-2xl px-5 pb-10'>$ {item.price}</p>
 				<Link
-					to='/detail'
+					to='/customer/detail'
 					state={{ item: item }}
 					className='text-l min-w-max	px-5 h-10 pt-2 mr-6 bg-green-400'>
 					Buy
