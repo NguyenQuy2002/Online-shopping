@@ -9,17 +9,25 @@ const Signup = () => {
 	const [role, setRole] = useState(0);
 	const navigate = useNavigate();
 	const handleSignup = () => {
-		const obj = {
-			name: name,
-			email: email,
-			password: password,
-			role: role,
+		if (role !== 1 && role !== 2) {
+			alert('Roles are not selected.');
+		} else if (password.length < 6) {
+			alert('The password should be more than 6 letters.')
+		}
+		else {
+				const obj = {
+				name: name,
+				email: email,
+				password: password,
+				role: role,
+			};
+			// console.log(obj)
+			Axios.post('http://localhost:3001/api/signup/', obj);
+			alert('Create successfully');
+			navigate('/customer');
+		}
+			
 		};
-		// console.log(obj)
-		Axios.post('http://localhost:3001/api/signup/', obj);
-		alert('Create successfully');
-		navigate('/customer');
-	};
 	return (
 		<section className='bg-gray-50 dark:bg-gray-900'>
 			<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -113,7 +121,7 @@ const Signup = () => {
 									Have an account?
 								</p>
 								<button
-									onClick={() => navigate('/login')}
+									onClick={() => navigate('/')}
 									className='text-cyan-200 font-bold'>
 									Log in
 								</button>

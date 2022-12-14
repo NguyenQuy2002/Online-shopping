@@ -12,6 +12,7 @@ import Hats from './pages/Customer/Hats';
 import Shoes from './pages/Customer/Shoes';
 import Header from './components/Header';
 import Signup from './pages/Auth/Signup';
+import AdminDetail from './pages/Admin/AdminDetail';
 
 const App = () => {
 	return (
@@ -30,6 +31,9 @@ const App = () => {
 						<Route
 							path='/admin'
 							element={<Admin />}></Route>
+						<Route
+							path='/admin/detail'
+							element={<AdminDetail />}></Route>
 					</Routes>
 					<Routes>
 						<Route
@@ -52,7 +56,7 @@ const App = () => {
 							element={<Shoes />}></Route>
 						<Route
 							path='/customer/detail'
-							element={<Detail />}></Route>
+							element={<Detail types='customer' />}></Route>
 						<Route
 							path='/customer/cart'
 							element={<Cart />}></Route>
@@ -61,32 +65,6 @@ const App = () => {
 							element={<Account />}></Route>
 					</Routes>
 				</div>
-				<footer className='bg-green-200 grid gap-10 sm:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 h-40'>
-					<div className='text-center'>
-						<p className='text-2xl w-full py-2 font-bold'>Hello</p>
-						<ul className='py-1'>
-							<li>Loren ipsum</li>
-							<li>Loren ipsum</li>
-							<li>Loren ipsum</li>
-						</ul>
-					</div>
-					<div className='text-center'>
-						<p className='text-2xl w-full py-2 font-bold'>Hello</p>
-						<ul className='py-1'>
-							<li>Loren ipsum</li>
-							<li>Loren ipsum</li>
-							<li>Loren ipsum</li>
-						</ul>
-					</div>
-					<div className='text-center'>
-						<p className='text-2xl w-full py-2 font-bold'>Hello</p>
-						<ul className='py-1'>
-							<li>Loren ipsum</li>
-							<li>Loren ipsum</li>
-							<li>Loren ipsum</li>
-						</ul>
-					</div>
-				</footer>
 			</Router>
 		</div>
 	);

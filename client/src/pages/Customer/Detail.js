@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const Detail = () => {
 	const location = useLocation();
@@ -22,14 +23,14 @@ const Detail = () => {
 			add_PId: id,
 			add_quantity: quantity,
 		};
-		Axios.post('http://localhost:3001/api/post/detail', obj)
+		Axios.post('http://localhost:3001/api/post/detail', obj);
 		alert('Order successfully');
-		navigate('/customer');
+		navigate(`/customer`);
 	};
 
 	return (
 		<div>
-			<Header />
+			<Header type='customer' />
 			<div className='p-5 grid grid-cols-4 gap-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4'>
 				<div className='h-screen items-center px-5 pt-40 col-start-2'>
 					<img
@@ -45,9 +46,7 @@ const Detail = () => {
 					<p>Type: {type}</p>
 					<p>Type: {category}</p>
 					<form action='/'>
-						<h2 className='text-2xl font-bold py-10'>
-							Price: ${price}
-						</h2>
+						<h2 className='text-2xl font-bold py-10'>Price: ${price}</h2>
 						<div className='flex justify-between'>
 							<label
 								className='text-lg'
@@ -77,9 +76,7 @@ const Detail = () => {
 							</div>
 						</div>
 						<div>
-							<h2 className='text-2xl font-bold py-10'>
-								Total: ${price * quantity}.00
-							</h2>
+							<h2 className='text-2xl font-bold py-10'>Total: ${price * quantity}</h2>
 							<input
 								className='transition-colors w-full border border-black mt-5 py-3 font-bold hover:bg-gray-600 hover:text-white'
 								type='button'
@@ -90,6 +87,7 @@ const Detail = () => {
 					</form>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };

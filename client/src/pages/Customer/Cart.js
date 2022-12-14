@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrderItem from '../../components/OrderItem';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const Cart = () => {
 	const [items, setItems] = useState([]);
@@ -38,7 +39,7 @@ const Cart = () => {
 	console.log(total);
 	return (
 		<>
-			<Header />
+			<Header type='customer' />
 			<div className='grid grid-cols-12 gap-4'>
 				<div className='col-start-2 col-span-10'>
 					<h1 className='bg-gray-200 text-3xl text-center font-bold py-10'>
@@ -130,6 +131,7 @@ const Cart = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 const Account = () => {
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
@@ -31,7 +32,7 @@ const Account = () => {
 
 	return (
 		<>
-			<Header />
+			<Header type='customer'/>
 			<div className='grid grid-cols-12 gap-4'>
 				<div className='col-start-2 col-span-10 h-screen'>
 					<h1 className='text-3xl bg-gray-200 px-4 py-5 text-blue-700'>
@@ -132,6 +133,7 @@ const Account = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };

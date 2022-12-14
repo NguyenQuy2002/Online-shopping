@@ -21,9 +21,9 @@ categories = ['Dresses', 'Pants', 'Shirts', 'Hats', 'Shoes'];
 for (let obj in categories) {
 	const link = `/api/get/product/` + categories[obj];
 	app.get(link, (req, res) => {
-		const sqlSelect = `SELECT p_id, p_name, price, stock, p_desc, picture FROM product INNER JOIN category ON product.p_cate_id = category.cate_id AND category.cate_name = ?`;
+		const sqlSelect = `CALL select_category_products(?)`;
 		db.query(sqlSelect, [categories[obj]], (err, result) => {
-			res.send(result);
+			res.send(result[0]);
 		});
 	});
 }
@@ -57,6 +57,13 @@ app.get('/api/get/cart', (req, res) => {
 	ORDER BY p.p_id `;
 	db.query(sqlSelect, (err, result) => {
 		res.send(result);
+	});
+});
+
+app.get('/api/get/all', (req, res) => {
+	const sqlSelect = `CALL select_all_product`;
+	db.query(sqlSelect, (err, result) => {
+		res.send(result[0]);
 	});
 });
 
@@ -113,10 +120,44 @@ app.post('/api/signup', (req, res) => {
 	}
 });
 
+
+app.put('/api/update/product', (req, res) => {
+	const p_id = req.body.id
+	const p_name = req.body.name
+	const picture = req.body.picture;
+	const p_desc = req.body.desc;
+	const price = req.body.price;
+	const stock = req.body.stock;
+	const sqlUpdate = 'UPDATE product SET p_name = ?, picture = ?, p_desc = ?, price = ?, stock = ? WHERE p_id = ?';
+	db.query(sqlUpdate, [p_name, picture, p_desc, price, stock, p_id], (err, result) => {
+		if (err) console.log(err);
+		console.log(result);
+	});
+});
+
 app.delete('/api/delete/cart', (req, res) => {
-	console.log(req.body);
 	const sqlDelete = 'DELETE FROM add_to WHERE add_OrId = 1';
 	db.query(sqlDelete, (err, result) => {
+		if (err) console.log(err);
+
+		console.log(result);
+	});
+});
+
+app.delete('/api/delete/order_items', (req, res) => {
+	const p_id = req.body.item.id;
+	const sqlDelete = 'DELETE FROM add_to WHERE add_PId = ?';
+	db.query(sqlDelete, [p_id], (err, result) => {
+		if (err) console.log(err);
+
+		console.log(result);
+	});
+});
+
+app.delete('/api/delete/products', (req, res) => {
+	const p_id = req.body.item.id;
+	const sqlDelete = 'DELETE FROM product WHERE p_id = ?';
+	db.query(sqlDelete, [p_id], (err, result) => {
 		if (err) console.log(err);
 
 		console.log(result);

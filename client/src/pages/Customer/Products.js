@@ -2,8 +2,9 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import ProductItem from '../../components/ProductItem';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
-const Products = () => {
+const Products = ({types}) => {
 	const [items, setItems] = useState([]);
 	useEffect(() => {
 		Axios.get('http://localhost:3001/api/get/product/features').then(
@@ -28,7 +29,7 @@ const Products = () => {
 	}, []);
 	return (
 		<>
-			<Header />
+			<Header type='customer' />
 			<h1 className='py-10 text-center font-bold text-4xl'>
 				Feature Products
 			</h1>
@@ -40,9 +41,11 @@ const Products = () => {
 							item={item}
 							key={key}
 						/>
+					
 					);
 				})}
 			</section>
+			<Footer />
 		</>
 	);
 };
