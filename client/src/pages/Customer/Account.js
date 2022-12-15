@@ -3,44 +3,60 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+
 const Account = () => {
-	const [info, setInfo] = useState({
-		id: '',
-		name: '',
-		password: '',
-		address: '',
-		mobile: '',
-		email: '',
-		district: '',
-		city: '',
-		country: '',
-	});
+	const [quantity, setQuantity] = useState(0);
+	const [id, setID] = useState('');
+	const [name, setName] = useState('');
+	const [password, setPassword] = useState('');
+	const [address, setAddress] = useState('');
+	const [mobile, setMobile] = useState('');
+	const [email, setEmail] = useState('');
+	const [district, setDistrict] = useState('');
+	const [city, setCity] = useState('');
+	const [country, setCountry] = useState('');
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		Axios.get('http://localhost:3001/api/get/account').then((response) => {
-			setInfo((prevState) => {
-				return {
-					...prevState,
-					id: response.data.c_id,
-					name: response.data.c_name,
-					password: response.data.password,
-					email: response.data.c_email,
-					address: response.data.c_address,
-					mobile: response.data.c_mobile,
-					district: response.data.district,
-					city: response.data.city,
-					country: response.data.country,
-				};
-			});
+			setName(response.data.c_name);
+			setID(response.data.c_id);
+			setPassword(response.data.password);
+			setAddress(response.data.c_address);
+			setMobile(response.data.c_mobile);
+			setEmail(response.data.c_email);
+			setDistrict(response.data.district);
+			setCity(response.data.city);
+			setCountry(response.data.country);
 		});
-	});
+	}, []);
 
 	const handleSubmit = () => {
-		console.log(info);
-		// Axios.put('http://localhost:3001/api/update/account', info)
-		// alert('Update account successfully');
-		// navigate('/customer');
+		console.log(1);
+		const obj = {
+			id: id,
+			name: name,
+			password: password,
+			email: email,
+			mobile: mobile,
+			address: address,
+			district: district,
+			city: city,
+			country: country,
+		};
+		Axios.put('http://localhost:3001/api/update/account', {
+			id: id,
+			name: name,
+			password: password,
+			email: email,
+			mobile: mobile,
+			address: address,
+			district: district,
+			city: city,
+			country: country,
+		});
+		alert('Update account successfully');
+		navigate('/customer');
 	};
 
 	return (
@@ -57,12 +73,8 @@ const Account = () => {
 							type='text'
 							name='name'
 							id='name'
-							defaultValue={info.name}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, name: e.target.value };
-								})
-							}
+							defaultValue={name}
+							onChange={(e) => setName(e.target.value)}
 						/>
 						<br />
 						<label htmlFor='password'>Password</label>
@@ -71,12 +83,9 @@ const Account = () => {
 							type='password'
 							name='password'
 							id='password'
-							defaultValue={info.password}
+							defaultValue={password}
 							onChange={(e) => {
-								setInfo((prevState) => {
-									return { ...prevState, password: e.target.value };
-								});
-								console.log(e.target.value);
+								setPassword(e.target.value);
 							}}
 						/>
 						<br />
@@ -86,12 +95,8 @@ const Account = () => {
 							type='email'
 							name='email'
 							id='email'
-							defaultValue={info.email}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, email: e.target.value };
-								})
-							}
+							defaultValue={email}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 						<br />
 						<label htmlFor='tel'>Mobile number</label>
@@ -100,12 +105,8 @@ const Account = () => {
 							type='tel'
 							name='tel'
 							id='tel'
-							defaultValue={info.mobile}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, mobile: e.target.value };
-								})
-							}
+							defaultValue={mobile}
+							onChange={(e) => setMobile(e.target.value)}
 						/>
 						<br />
 						<label htmlFor='address'>Address</label>
@@ -114,12 +115,8 @@ const Account = () => {
 							type='text'
 							name='address'
 							id='address'
-							defaultValue={info.address}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, address: e.target.value };
-								})
-							}
+							defaultValue={address}
+							onChange={(e) => setAddress(e.target.value)}
 						/>
 						<br />
 						<label htmlFor='district'>District</label>
@@ -128,12 +125,8 @@ const Account = () => {
 							type='text'
 							name='district'
 							id='district'
-							defaultValue={info.district}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, district: e.target.value };
-								})
-							}
+							defaultValue={district}
+							onChange={(e) => setDistrict(e.target.value)}
 						/>
 						<br />
 						<label htmlFor='city'>City</label>
@@ -142,12 +135,8 @@ const Account = () => {
 							type='text'
 							name='city'
 							id='city'
-							defaultValue={info.city}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, city: e.target.value };
-								})
-							}
+							defaultValue={city}
+							onChange={(e) => setCity(e.target.value)}
 						/>
 						<br />
 						<label htmlFor='country'>Country</label>
@@ -156,12 +145,8 @@ const Account = () => {
 							type='text'
 							name='country'
 							id='country'
-							defaultValue={info.country}
-							onChange={(e) =>
-								setInfo((prevState) => {
-									return { ...prevState, country: e.target.value };
-								})
-							}
+							defaultValue={country}
+							onChange={(e) => setCountry(e.target.value)}
 						/>
 						<br />
 						<input
