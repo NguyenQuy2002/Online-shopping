@@ -1,18 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Auth/Login';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Admin from './pages/Admin/Admin';
-import Dresses from './pages/Customer/Dresses';
-import Products from './pages/Customer/Products';
-import Pants from './pages/Customer/Pants';
-import Shirts from './pages/Customer/Shirts';
-import Detail from './pages/Customer/Detail';
-import Cart from './pages/Customer/Cart';
-import Account from './pages/Customer/Account';
-import Hats from './pages/Customer/Hats';
-import Shoes from './pages/Customer/Shoes';
-import Header from './components/Header';
-import Signup from './pages/Auth/Signup';
 import AdminDetail from './pages/Admin/AdminDetail';
+import Login from './pages/Auth/Login';
+import Signup from './pages/Auth/Signup';
+import Account from './pages/Customer/Account';
+import Cart from './pages/Customer/Cart';
+import Detail from './pages/Customer/Detail';
+import Dresses from './pages/Customer/Dresses';
+import Hats from './pages/Customer/Hats';
+import Pants from './pages/Customer/Pants';
+import Products from './pages/Customer/Products';
+import Shirts from './pages/Customer/Shirts';
+import Shoes from './pages/Customer/Shoes';
 
 const App = () => {
 	return (

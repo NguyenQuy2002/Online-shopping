@@ -9,7 +9,7 @@ const port = process.env.PORT || 3001;
 const db = mysql.createPool({
 	host: 'localhost',
 	user: 'root',
-	password: 'password',
+	password: '123456',
 	database: 'ams2',
 });
 
@@ -68,6 +68,13 @@ app.post('/api/post/login/customer', (req, res) => {
 app.get('/api/get/cart', (req, res) => {
 	const sqlSelect = 'CALL display_cart_list';
 	db.query(sqlSelect, (err, result) => {
+		res.send(result[0]);
+	});
+});
+
+app.get('/api/get/customercare', (req, res) => {
+	const sqlSelect = 'SELECT hotline FROM support WHERE sup_cid = ?';
+	db.query(sqlSelect, [CustomerID], (err, result) => {
 		res.send(result[0]);
 	});
 });
@@ -176,10 +183,15 @@ app.put('/api/update/account', (req, res) => {
 	const country = req.body.country;
 	const sqlUpdate =
 		'UPDATE customer SET c_name = ?, password = ?, c_email = ?, c_address = ?, c_mobile = ?, district = ?, city = ?, country = ? WHERE c_id = ?';
-	db.query(sqlUpdate, [c_name, password, c_email, c_address, c_mobile, district, city, country, c_id], (err, result) => {
-		if (err) console.log(err);
-		console.log(result);
-	});
+	db.query(
+		sqlUpdate,
+		[c_name, password, c_email, c_address, c_mobile, district, city, country, c_id],
+		(err, result) => {
+			console.log(sqlUpdate);
+			if (err) console.log(err);
+			console.log(result);
+		}
+	);
 });
 
 app.delete('/api/delete/cart', (req, res) => {

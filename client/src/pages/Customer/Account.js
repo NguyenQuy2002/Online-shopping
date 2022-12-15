@@ -37,9 +37,10 @@ const Account = () => {
 	});
 
 	const handleSubmit = () => {
-		Axios.put('http://localhost:3001/api/update/account', info)
-		alert('Update account successfully');
-		navigate('/customer');
+		console.log(info);
+		// Axios.put('http://localhost:3001/api/update/account', info)
+		// alert('Update account successfully');
+		// navigate('/customer');
 	};
 
 	return (
@@ -71,11 +72,12 @@ const Account = () => {
 							name='password'
 							id='password'
 							defaultValue={info.password}
-							onChange={(e) =>
+							onChange={(e) => {
 								setInfo((prevState) => {
 									return { ...prevState, password: e.target.value };
-								})
-							}
+								});
+								console.log(e.target.value);
+							}}
 						/>
 						<br />
 						<label htmlFor='email'>Email</label>

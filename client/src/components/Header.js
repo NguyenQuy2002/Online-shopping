@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { FaHome, FaProductHunt, FaShoppingCart, FaUser } from 'react-icons/fa';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -6,6 +7,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 // eslint-disable-next-line
 const Header = ({ type }) => {
 	let content;
+	const [hotline, setHotline] = useState()
+	useEffect(() => {
+		Axios.get('http://localhost:3001/api/get/customercare').then((response) => 
+			setHotline(response.data.hotline)
+		)
+	}, [])
 	if (type === 'customer') {
 		content = (
 			<>
@@ -86,6 +93,9 @@ const Header = ({ type }) => {
 								</Dropdown.Item>
 							</Dropdown.Menu>
 						</Dropdown>
+						<div className='block text-center text-lg font-bold text-white'>
+							<p>Hotline: {hotline}</p>
+						</div>
 					</div>
 				</nav>
 			</>
