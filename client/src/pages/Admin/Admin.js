@@ -4,9 +4,12 @@ import Header from '../../components/Header';
 import { useState } from 'react';
 import ProductItem from '../../components/ProductItem';
 import EditItem from '../../components/EditItem';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
 	const [items, setItems] = useState([]);
+	const navigate = useNavigate()
 	useEffect(() => {
 		Axios.get('http://localhost:3001/api/get/all').then((response) => {
 			var data = [];
@@ -50,6 +53,16 @@ const Admin = () => {
 								/>
 							);
 						})}
+						<div className='w-full h-20 bg-gray-200 mb-3 flex flex-row justify-around items-center border-y-2 border-black'>
+							<Link
+								to='/admin/detail'
+								state={{ item: {
+
+								}}}
+								className='text-2xl font-bold text-green-700'>
+								+ Insert new product
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

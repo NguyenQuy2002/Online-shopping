@@ -42,29 +42,17 @@ const Cart = () => {
 			<Header type='customer' />
 			<div className='grid grid-cols-12 gap-4'>
 				<div className='col-start-2 col-span-10'>
-					<h1 className='bg-gray-200 text-3xl text-center font-bold py-10'>
-						Shopping cart
-					</h1>
+					<h1 className='bg-gray-200 text-3xl text-center font-bold py-10'>Shopping cart</h1>
 					<div className='sm:flex 2xl:flex sm:flex-column 2xl:flew-row h-screen '>
-						<div className='sm:w-full 2xl:w-9/12 border-2'>
+						<div className='sm:w-full 2xl:w-9/12 h-40'>
 							<table className='border-collapse border border-slate-500 h-3/5 w-full'>
 								<thead className='border border-slate-500'>
 									<tr>
-										<th className='border border-slate-500'>
-											Product
-										</th>
-										<th className='border border-slate-500'>
-											Name
-										</th>
-										<th className='border border-slate-500'>
-											Quantity
-										</th>
-										<th className='border border-slate-500'>
-											Price
-										</th>
-										<th className='border border-slate-500'>
-											Delete
-										</th>
+										<th className='border border-slate-500'>Product</th>
+										<th className='border border-slate-500'>Name</th>
+										<th className='border border-slate-500'>Quantity</th>
+										<th className='border border-slate-500'>Price</th>
+										<th className='border border-slate-500'>Delete</th>
 									</tr>
 								</thead>
 
@@ -81,9 +69,7 @@ const Cart = () => {
 							</table>
 						</div>
 						<div className='sm:w-full 2xl:w-3/12 p-4 border border-gray-500'>
-							<h1 className='text-3xl font-bold pb-10'>
-								ORDER SUMMARY
-							</h1>
+							<h1 className='text-3xl font-bold pb-10'>ORDER SUMMARY</h1>
 							<div className='text-lg flex flex-row justify-between my-5'>
 								<p>Sub-total</p>
 								<p>${total}</p>
@@ -97,36 +83,56 @@ const Cart = () => {
 								<p>${total}</p>
 							</div>
 							<hr />
-							<p className='py-5 font-bold'>
-								ACCEPTED PAYMENT METHODS
-							</p>
-							<div className='flex flex-row justify-between h-10'>
-								<div className='flex w-1/4 h-12 border-2 border-black rounded-lg justify-center items-center'>
-									<img
-										className='w-10'
-										src='../images/payment/momo.png'
-										alt='Momo'
+							<p className='py-5 font-bold'>ACCEPTED PAYMENT METHODS</p>
+
+							<div className='flex flex-row justify-between space-x-2 h-auto'>
+								<div className='block flex flex-row space-x-2'>
+									<input
+										type='radio'
+										name='payment'
+										id='Momo'
 									/>
+									<label htmlFor='Momo'>
+										<img
+											className='w-16'
+											src='../images/payment/momo.png'
+											alt='Momo'
+										/>
+									</label>
 								</div>
-								<div className='flex w-1/4 h-12 border-2 border-black rounded-lg justify-center items-center'>
-									<img
-										className='h-10'
-										src='../images/payment/paypal.png'
-										alt='Paypal'
+								<div className='block flex flex-row space-x-2 items-center'>
+									<input
+										type='radio'
+										name='payment'
+										id='visa'
 									/>
+									<label htmlFor='visa'>
+										<img
+											className='w-16'
+											src='../images/payment/visa.png'
+											alt='visa'
+										/>
+									</label>
 								</div>
-								<div className='flex w-1/4 h-12 border-2 border-black rounded-lg justify-center items-center'>
-									<img
-										src='../images/payment/visa.png'
-										alt='Visa'
+								<div className='block flex flex-row space-x-2 items-center'>
+									<input
+										type='radio'
+										name='payment'
+										id='bank'
 									/>
+									<label htmlFor='bank'>
+										<img
+											className='w-16'
+											src='../images/payment/bank.png'
+											alt='bank'
+										/>
+									</label>
 								</div>
 							</div>
-							<button
-								className='w-full h-12 border border-blue-400 bg-blue-400 text-white hover:bg-white hover:text-blue-400 my-5'
-								onClick={handlePurchase}>
-								Purchase
-							</button>
+							<div className='block'>
+								<button className='transition-colors rounded-lg w-full h-12 my-5 bg-blue-400 font-bold hover:bg-blue-900 hover:text-white'
+								onClick={handlePurchase}>Purchase</button>
+							</div>
 						</div>
 					</div>
 				</div>

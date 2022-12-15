@@ -17,6 +17,9 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var CustomerID = 1;
+var InventId = 1;
+
 categories = ['Dresses', 'Pants', 'Shirts', 'Hats', 'Shoes'];
 for (let obj in categories) {
 	const link = `/api/get/product/` + categories[obj];
@@ -29,34 +32,50 @@ for (let obj in categories) {
 }
 
 app.get('/api/get/product/features', (req, res) => {
-	const sqlSelect = `SELECT p_id, p_name, price, stock, p_desc, picture FROM product ORDER BY stock DESC LIMIT 8`;
+	const sqlSelect = `CALL select_feature_product`;
 	db.query(sqlSelect, (err, result) => {
-		res.send(result);
+		res.send(result[0]);
 	});
 });
 
-app.get('/api/login/customer', (req, res) => {
-	const sqlSelect = `SELECT c_email, password FROM customer`;
-	db.query(sqlSelect, (err, result) => {
-		res.send(result);
-	});
-});
+app.post('/api/post/login/admin', (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	const sqlSelect = 'SELECT is_id FROM invent_manage WHERE is_email = ? AND is_password = ?';
+	db.query(sqlSelect, [email, password], (err, result) => {
+		if (err) console.log(err)
+		else if (result.length > 0) {
+			res.send(result)
+			InventId = result[0].is_id
+		}
+		else res.send('Incorrect username or password')
+	})
+})
 
-app.get('/api/login/admin', (req, res) => {
-	const sqlSelect = `SELECT is_email, is_password FROM invent_manage`;
-	db.query(sqlSelect, (err, result) => {
-		res.send(result);
+app.post('/api/post/login/customer', (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	const sqlSelect = 'SELECT c_id FROM customer WHERE c_email = ? AND password = ?';
+	db.query(sqlSelect, [email, password], (err, result) => {
+		if (err) console.log(err);
+		else if (result.length > 0) {
+			res.send(result);
+			CustomerID = result[0].c_id;
+		} else res.send('Incorrect username or password');
 	});
 });
 
 app.get('/api/get/cart', (req, res) => {
-	const sqlSelect = `SELECT p.p_id, p.picture, p.p_name, p.price, a.add_quantity 
-	FROM product p, add_to a 
-	WHERE p.p_id = a.add_PId 
-	AND a.add_OrId = '1' 
-	ORDER BY p.p_id `;
+	const sqlSelect = 'CALL display_cart_list';
 	db.query(sqlSelect, (err, result) => {
-		res.send(result);
+		res.send(result[0]);
+	});
+});
+
+app.get('/api/get/account', (req, res) => {
+	const sqlSelect = 'SELECT * FROM customer WHERE c_id = ?';
+	db.query(sqlSelect, [CustomerID], (err, result) => {
+		res.send(result[0]);
 	});
 });
 
@@ -78,13 +97,10 @@ app.post('/api/post/account', (req, res) => {
 
 	const sqlInsert =
 		'INSERT INTO customer (c_name, password, c_mobile, c_email, district, city, country) VALUES (?, ?, ?, ?, ?, ?, ?)';
-	db.query(
-		sqlInsert,
-		[name, password, tel, email, district, city, country],
-		(err, result) => {
-			console.log(result);
-		}
-	);
+	db.query(sqlInsert, [name, password, tel, email, district, city, country], (err, result) => {
+		if (err) console.log(err);
+		console.log(result);
+	});
 });
 
 app.post('/api/post/detail', (req, res) => {
@@ -92,9 +108,23 @@ app.post('/api/post/detail', (req, res) => {
 	const add_PId = req.body.add_PId;
 	const add_quantity = req.body.add_quantity;
 	console.log(add_OrId, add_PId, add_quantity);
-	const sqlInsert =
-		'INSERT INTO add_to (add_OrId, add_PId, add_quantity) VALUES (?, ?, ?)';
+	const sqlInsert = 'INSERT INTO add_to (add_OrId, add_PId, add_quantity) VALUES (?, ?, ?)';
 	db.query(sqlInsert, [add_OrId, add_PId, add_quantity], (err, result) => {
+		if (err) console.log(err);
+		console.log(result);
+	});
+});
+
+app.post('/api/insert/product', (req, res) => {
+	const p_name = req.body.name;
+	const picture = req.body.picture;
+	const p_desc = req.body.desc;
+	const price = req.body.price;
+	const stock = req.body.stock;
+	const cate_id = req.body.category
+	const sqlInsert = 'INSERT INTO product (inventory_id, p_name, picture, p_desc, price, stock, p_cate_id) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	db.query(sqlInsert, [InventId, p_name, picture, p_desc, price, stock, cate_id], (err, result) => {
+		if (err) console.log(err);
 		console.log(result);
 	});
 });
@@ -106,30 +136,47 @@ app.post('/api/signup', (req, res) => {
 	const role = req.body.role;
 	console.log(role);
 	if (role == 1) {
-		const sqlInsert =
-			'INSERT INTO invent_manage (is_name, is_password, is_email) VALUES (?, ?, ?)';
+		const sqlInsert = 'INSERT INTO invent_manage (is_name, is_password, is_email) VALUES (?, ?, ?)';
 		db.query(sqlInsert, [name, password, email], (err, result) => {
 			console.log(result);
 		});
 	} else if (role == 2) {
-		const sqlInsert =
-			'INSERT INTO customer (c_name, password, c_email) VALUES (?, ?, ?)';
+		const sqlInsert = 'INSERT INTO customer (c_name, password, c_email) VALUES (?, ?, ?)';
 		db.query(sqlInsert, [name, password, email], (err, result) => {
+			if (err) console.log(err);
 			console.log(result);
 		});
 	}
 });
 
-
 app.put('/api/update/product', (req, res) => {
-	const p_id = req.body.id
-	const p_name = req.body.name
+	const p_id = req.body.id;
+	const p_name = req.body.name;
 	const picture = req.body.picture;
 	const p_desc = req.body.desc;
 	const price = req.body.price;
 	const stock = req.body.stock;
-	const sqlUpdate = 'UPDATE product SET p_name = ?, picture = ?, p_desc = ?, price = ?, stock = ? WHERE p_id = ?';
-	db.query(sqlUpdate, [p_name, picture, p_desc, price, stock, p_id], (err, result) => {
+	const category = req.body.category
+	const sqlUpdate = 'UPDATE product SET inventory_id = ?, p_name = ?, picture = ?, p_desc = ?, price = ?, stock = ?, p_cate_id = ? WHERE p_id = ?';
+	db.query(sqlUpdate, [InventId, p_name, picture, p_desc, price, stock, category, p_id], (err, result) => {
+		if (err) console.log(err);
+		console.log(result);
+	});
+});
+
+app.put('/api/update/account', (req, res) => {
+	const c_id = req.body.id;
+	const c_name = req.body.name;
+	const password = req.body.password;
+	const c_email = req.body.email;
+	const c_address = req.body.address;
+	const c_mobile = req.body.mobile;
+	const district = req.body.district;
+	const city = req.body.city;
+	const country = req.body.country;
+	const sqlUpdate =
+		'UPDATE customer SET c_name = ?, password = ?, c_email = ?, c_address = ?, c_mobile = ?, district = ?, city = ?, country = ? WHERE c_id = ?';
+	db.query(sqlUpdate, [c_name, password, c_email, c_address, c_mobile, district, city, country, c_id], (err, result) => {
 		if (err) console.log(err);
 		console.log(result);
 	});

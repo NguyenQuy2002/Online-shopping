@@ -10,7 +10,7 @@ const OrderItem = ({ item }) => {
 			item: item,
 		}});
 		alert('Delete successfully');
-		navigate('/customer');
+		window.location.reload(false)
 	};
 	return (
 		<tr>
