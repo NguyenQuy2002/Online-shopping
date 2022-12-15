@@ -88,6 +88,11 @@ const Header = ({ type }) => {
 								</Dropdown.Item>
 								<Dropdown.Item
 									className='block text-lg hover:bg-gray-300 px-2'
+									href='/customer/courier'>
+									Delivery Status
+								</Dropdown.Item>
+								<Dropdown.Item
+									className='block text-lg hover:bg-gray-300 px-2'
 									href='/'>
 									Log out
 								</Dropdown.Item>

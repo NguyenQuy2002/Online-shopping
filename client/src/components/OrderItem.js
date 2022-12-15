@@ -1,9 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const OrderItem = ({ item }) => {
-	const navigate = useNavigate();
 	var item_total = item.price * item.quantity;
 	const handleDelete = () => {
 		Axios.delete(`http://localhost:3001/api/delete/order_items`, {data: {

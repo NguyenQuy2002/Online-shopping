@@ -5,6 +5,7 @@ import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import Account from './pages/Customer/Account';
 import Cart from './pages/Customer/Cart';
+import Courier from './pages/Customer/Courier';
 import Detail from './pages/Customer/Detail';
 import Dresses from './pages/Customer/Dresses';
 import Hats from './pages/Customer/Hats';
@@ -62,6 +63,9 @@ const App = () => {
 						<Route
 							path='/customer/account'
 							element={<Account />}></Route>
+						<Route
+							path='/customer/courier'
+							element={<Courier />}></Route>
 					</Routes>
 				</div>
 			</Router>
