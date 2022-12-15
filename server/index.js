@@ -13,6 +13,13 @@ const db = mysql.createPool({
 	database: 'ams2',
 });
 
+// const db = mysql.createPool({
+// 	host: 'localhost',
+// 	user: 'root',
+// 	password: 'Phuquy15022002',
+// 	database: 'ams2',
+// });
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -82,6 +89,7 @@ app.get('/api/get/customercare', (req, res) => {
 app.get('/api/get/account', (req, res) => {
 	const sqlSelect = 'SELECT * FROM customer WHERE c_id = ?';
 	db.query(sqlSelect, [CustomerID], (err, result) => {
+		console.log(10)
 		res.send(result[0]);
 	});
 });
