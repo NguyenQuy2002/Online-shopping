@@ -6,19 +6,19 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3001;
 
-// const db = mysql.createPool({
-// 	host: 'localhost',
-// 	user: 'root',
-// 	password: '123456',
-// 	database: 'ams2',
-// });
-
 const db = mysql.createPool({
 	host: 'localhost',
 	user: 'root',
-	password: 'Phuquy15022002',
+	password: '123456',
 	database: 'ams2',
 });
+
+// const db = mysql.createPool({
+// 	host: 'localhost',
+// 	user: 'root',
+// 	password: 'Phuquy15022002',
+// 	database: 'ams2',
+// });
 
 // const db = mysql.createPool({
 // 	host: 'localhost',
@@ -48,6 +48,13 @@ for (let obj in categories) {
 app.get('/api/get/product/features', (req, res) => {
 	const sqlSelect = `CALL select_feature_product`;
 	db.query(sqlSelect, (err, result) => {
+		res.send(result[0]);
+	});
+});
+
+app.get('/api/get/courier', (req, res) => {
+	const sqlSelect = `CALL select_courier(?)`;
+	db.query(sqlSelect, [CustomerID], (err, result) => {
 		res.send(result[0]);
 	});
 });
