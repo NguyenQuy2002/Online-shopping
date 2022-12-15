@@ -5,7 +5,6 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
 const Account = () => {
-	const [quantity, setQuantity] = useState(0);
 	const [id, setID] = useState('');
 	const [name, setName] = useState('');
 	const [password, setPassword] = useState('');
@@ -32,18 +31,6 @@ const Account = () => {
 	}, []);
 
 	const handleSubmit = () => {
-		console.log(1);
-		const obj = {
-			id: id,
-			name: name,
-			password: password,
-			email: email,
-			mobile: mobile,
-			address: address,
-			district: district,
-			city: city,
-			country: country,
-		};
 		Axios.put('http://localhost:3001/api/update/account', {
 			id: id,
 			name: name,

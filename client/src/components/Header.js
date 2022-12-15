@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { FaHome, FaProductHunt, FaShoppingCart, FaUser } from 'react-icons/fa';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 // eslint-disable-next-line
