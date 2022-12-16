@@ -50,7 +50,7 @@ const Account = () => {
 		<>
 			<Header type='customer' />
 			<div className='grid grid-cols-12 gap-4'>
-				<div className='col-start-2 col-span-10 h-screen'>
+				<div className='col-start-2 col-span-10 h-full pb-20'>
 					<h1 className='text-3xl bg-gray-200 px-4 py-5 text-blue-700'>Account detail</h1>
 					<h3 className='text-l px-4 py-5 text-gray-500'>Enter or edit information and click Update</h3>
 					<div className='mx-72 h-full'>
@@ -145,7 +145,9 @@ const Account = () => {
 					</div>
 				</div>
 			</div>
-			<Footer />
+			<div>
+				<Footer />
+			</div>
 		</>
 	);
 };

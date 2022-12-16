@@ -15,7 +15,6 @@ const EditItem = ({ item }) => {
 				{
 					label: 'Yes',
 					onClick: () => {
-						alert('Click Yes');
 						Axios.delete(`http://localhost:3001/api/delete/products`, {
 							data: {
 								item: item,
@@ -28,7 +27,6 @@ const EditItem = ({ item }) => {
 				},
 				{
 					label: 'No',
-					onClick: () => alert('Click No'),
 				},
 			],
 		});

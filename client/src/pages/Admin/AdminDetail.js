@@ -30,7 +30,7 @@ const AdminDetail = () => {
 	return (
 		<div className='grid grid-cols-12 gap-4 bg-gray-300 sm:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12 h-screen'>
 			<div className='flex h-full sm:col-start-1 sm:col-span-6 lg:col-start-1 lg:col-span-8 xl:col-start-2 xl:col-span-10 justify-center items-center'>
-				<div className='block bg-white w-4/6 h-4/6 border border-black' >
+				<div className='block bg-white w-4/6 h-5/6 border border-black' >
 					<div className='block border-b border-black'>
 						<h1 className='block text-center text-3xl font-bold py-5'>Managing product</h1>
 					</div>
@@ -95,6 +95,7 @@ const AdminDetail = () => {
 								<select
 									name='category'
 									id='category'
+									className='border border-black'
 									defaultValue={1}
 									onChange={(e) => {
 										setInfo((prevState) => {

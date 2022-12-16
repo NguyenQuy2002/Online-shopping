@@ -15,8 +15,8 @@ const Shoes = () => {
 						picture: response.data[obj].picture,
 						name: response.data[obj].p_name,
 						desc: response.data[obj].p_desc,
-						category: 'Dress',
-						type: 'Full body wear',
+						category: 'Shoe',
+						type: 'Foot wear',
 						price: response.data[obj].price,
 						stock: response.data[obj].stock,
 					};

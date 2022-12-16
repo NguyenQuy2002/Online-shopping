@@ -8,7 +8,6 @@ import Footer from '../../components/Footer';
 const Cart = () => {
 	const [items, setItems] = useState([]);
 	const [total, setTotal] = useState(0);
-	const [delivery, setDelivery] = useState(0);
 
 	const navigate = useNavigate();
 
@@ -35,8 +34,6 @@ const Cart = () => {
 			setItems(item);
 		});
 	}, []);
-
-	console.log(total);
 	return (
 		<>
 			<Header type='customer' />
@@ -72,15 +69,15 @@ const Cart = () => {
 							<h1 className='text-3xl font-bold pb-10'>ORDER SUMMARY</h1>
 							<div className='text-lg flex flex-row justify-between my-5'>
 								<p>Sub-total</p>
-								<p>${total}</p>
+								<p>${total.toFixed(2)}</p>
 							</div>
 							<div className='text-lg flex flex-row justify-between my-5'>
 								<p>Delivery</p>
-								<p>${delivery}</p>
+								<p>${(total * 0.07).toFixed(2)}</p>
 							</div>
 							<div className='flex flex-row justify-between my-5 text-2xl font-bold'>
 								<p className=''>Estimated total</p>
-								<p>${total}</p>
+								<p>${(total + total * 0.07).toFixed(2)}</p>
 							</div>
 							<hr />
 							<p className='py-5 font-bold'>ACCEPTED PAYMENT METHODS</p>
@@ -130,8 +127,11 @@ const Cart = () => {
 								</div>
 							</div>
 							<div className='block'>
-								<button className='transition-colors rounded-lg w-full h-12 my-5 bg-blue-400 font-bold hover:bg-blue-900 hover:text-white'
-								onClick={handlePurchase}>Purchase</button>
+								<button
+									className='transition-colors rounded-lg w-full h-12 my-5 bg-blue-400 font-bold hover:bg-blue-900 hover:text-white'
+									onClick={handlePurchase}>
+									Purchase
+								</button>
 							</div>
 						</div>
 					</div>
